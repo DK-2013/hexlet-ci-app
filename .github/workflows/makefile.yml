@@ -9,13 +9,18 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [18.x]
+
     steps:
     - uses: actions/checkout@v4
-    
-    - uses: actions/setup-node@v4
+
+    - name: use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
       with:
-        node-version: '18.x'
-        cache: 'npm' # ускоряет повторные сборки
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
 
     - name: setup
       run: make setup
